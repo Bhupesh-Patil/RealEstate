@@ -551,17 +551,17 @@ const LandingPage = () => {
             <div className={s.designCredit}>
               <img
                 src={logo}
-                alt="Hexagon Digital Services"
+                alt="Team 60"
                 className={s.designLogo}
               />
               <span className="text-text-muted">Designed by</span>
               <a
-                href="https://hexagondigitalservices.com"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={s.designLink}
               >
-                Hexagon Digital Services
+               Team 60
               </a>
             </div>
           </div>

@@ -1,10 +1,28 @@
+// import mongoose from "mongoose";
+
+// export const connectDB = async () => {
+//   const mongoUri = process.env.MONGO_URI;
+
+//   if (!mongoUri) {
+//     throw new Error("MONGO_URI is missing in environment variables");
+//   }
+
+//   await mongoose.connect(mongoUri);
+//   console.log("DB connected");
+// };
+
 import mongoose from "mongoose";
 
-export const connectDB = async ()=> {
-  console.log("MONGO_URI:", process.env.MONGO_URI);
-  await mongoose.connect(process.env.MONGO_URI)
-  .then(() => {console.log("DB connected")})
-}
+export const connectDB = async () => {
+  const mongoUri = process.env.MONGO_URI;
+
+  if (!mongoUri) {
+    throw new Error("MONGO_URI is missing in environment variables");
+  }
+
+  await mongoose.connect(mongoUri);
+  console.log("DB connected");
+};
 
 // ✨ Step-by-step Instructions (Follow Step 1, then Step 2, then Step 3, …)
 

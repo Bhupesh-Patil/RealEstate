@@ -1,16 +1,62 @@
-# React + Vite
+# RealState Frontend Setup Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This guide helps you run the frontend locally and connect it to your backend.
 
-Currently, two official plugins are available:
+## 1) Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js `20.x` (recommended `20.19+`)
+- npm
+- Backend running on `http://localhost:5000` (or your deployed backend URL)
 
-## React Compiler
+## 2) Install dependencies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+From project root:
 
-## Expanding the ESLint configuration
+```bash
+cd frontend
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 3) Environment variables
+
+1. Create `frontend/.env` from `frontend/.env.example`.
+2. Set backend URL:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+If backend is deployed, replace with your live API URL.
+
+## 4) Start frontend
+
+```bash
+npm run dev
+```
+
+Default local URL:
+- `http://localhost:5173`
+
+## 5) Build for production
+
+```bash
+npm run build
+npm run preview
+```
+
+## 6) How API + Socket are connected
+
+- API base URL comes from `VITE_API_URL` in `src/config.js`.
+- HTTP requests use this base URL.
+- Chat socket also uses the same base URL from `ChatContext`.
+
+So one env variable controls both REST and Socket endpoints.
+
+## 7) Quick verification checklist
+
+- [ ] Backend is running (`http://localhost:5000/` responds)
+- [ ] `frontend/.env` has correct `VITE_API_URL`
+- [ ] `npm run dev` starts without errors
+- [ ] App opens at `http://localhost:5173`
+- [ ] Login/register and property listing load correctly
+- [ ] Chat connects and receives real-time messages

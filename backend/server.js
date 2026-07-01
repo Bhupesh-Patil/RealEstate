@@ -7,6 +7,7 @@ import { Server } from "socket.io";
 
 //config
 import { connectDB } from "./config/db.js";
+import { setupSwagger } from "./config/swagger.js";
 
 //Routes
 import authRouter from "./routes/auth.routes.js";
@@ -19,10 +20,7 @@ import chatRouter from "./routes/chat.routes.js";
 import contactRouter from "./routes/contact.route.js";
 
 const app = express();
-const PORT = 5000;
-
-//Database connection
-connectDB();
+const PORT = process.env.PORT || 5000;
 
 //middlewares
 const allowedOrigins = [
@@ -42,6 +40,7 @@ app.use(
   })
 );
 app.use(express.json());
+setupSwagger(app);
 
 //Routes
 
@@ -84,6 +83,16 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server Started on http://localhost:${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    server.listen(PORT, () => {
+      console.log(`Server Started on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
